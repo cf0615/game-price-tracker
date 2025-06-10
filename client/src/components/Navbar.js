@@ -17,6 +17,7 @@ export default function Navbar() {
       <div style={styles.links}>
         {!isLoggedIn ? (
           <>
+            <Link to="/games" style={styles.link}>Game List</Link>
             <Link to="/signin" style={styles.link}>Sign In</Link>
             <Link to="/signup" style={styles.link}>Sign Up</Link>
           </>
