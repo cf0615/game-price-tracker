@@ -217,3 +217,9 @@
   font-size: 0.8rem;
 }
 
+.epic-dates {
+  font-size: 0.8rem;
+  color: #ccc;
+  text-align: center;
+  margin-top: 5px;
+}

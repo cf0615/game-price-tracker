@@ -5,6 +5,7 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
 const gamesRouter = require("./routes/games");
+const epicRoute = require("./routes/epic");
 
 const app = express();
 
@@ -24,6 +25,8 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use("/api/auth", authRoutes);
 // Games.js
 app.use("/api/games", gamesRouter);
+// Epic.js
+app.use("/api/epic", epicRoute);
 
 // Default route
 app.get("/", (req, res) => {
