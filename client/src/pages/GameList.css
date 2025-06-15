@@ -1,0 +1,173 @@
+body {
+  margin: 0;
+  background-color: #121212;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.game-list-page {
+  min-height: 100vh;
+  background-color: #121212;
+  padding: 20px;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.game-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.game-card {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  height: 280px; 
+  position: relative;/* 🔒 Fixed height for all cards */
+}
+
+
+.game-card:hover {
+  transform: scale(1.02);
+}
+
+.game-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.game-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+
+.game-content h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #fff;
+}
+
+.game-content p {
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.4;
+  max-height: 2.8em; /* ≈ 2 lines max */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.page-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: #00aaff;
+}
+
+.page-header p {
+  font-size: 1rem;
+  color: #ccc;
+  margin-top: 5px;
+}
+
+.search-bar {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.search-bar input {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #1e1e1e;
+  color: #fff;
+  width: 250px;
+  font-size: 14px;
+}
+
+.search-bar input::placeholder {
+  color: #888;
+}
+
+.search-bar button {
+  padding: 8px 16px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-bar button:hover {
+  background-color: #005fa3;
+}
+
+.game-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.free-badge {
+  background-color: #2c2c2c;
+  color: #00ff88;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.free-tag {
+  background-color: #2e7d32;
+  color: white;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.top-right-tags {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+  z-index: 1;
+}
+
+.genre-tag {
+  background-color: #0077cc;
+  color: white;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+
+
