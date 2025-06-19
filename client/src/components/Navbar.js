@@ -1,27 +1,65 @@
-// src/components/Navbar.js
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { FaGamepad } from "react-icons/fa"; // Font Awesome icon
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const isLoggedIn = !!localStorage.getItem("token");
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/signin");
+  const [hoveredTab, setHoveredTab] = useState(null);
+
+  const isActive = (path) => location.pathname === path;
+
+  const renderNavTab = (to, label) => {
+    const isHovered = hoveredTab === label;
+    const active = isActive(to);
+
+    return (
+      <Link
+        to={to}
+        onMouseEnter={() => setHoveredTab(label)}
+        onMouseLeave={() => setHoveredTab(null)}
+        style={{
+          ...styles.textTab,
+          color: active || isHovered ? "#00aaff" : "#ccc",
+          borderBottom: active || isHovered ? "2px solid #00aaff" : "none",
+        }}
+      >
+        {label}
+      </Link>
+    );
   };
 
   return (
     <nav style={styles.nav}>
-      <div style={styles.brand}>🎮 Game Tracker</div>
+      <div style={styles.leftSection}>
+        <div style={styles.brand}>
+          <FaGamepad style={styles.icon} /> <span style={styles.brandText}>Gam</span><span style={styles.brandHighlight}>ix</span>
+        </div>
+        <div style={styles.leftLinks}>
+          {renderNavTab("/games", "Game List")}
+          {renderNavTab("/favorites", "Favorites")}
+        </div>
+      </div>
+
       <div style={styles.links}>
         {!isLoggedIn ? (
           <>
-            <Link to="/signin" style={styles.link}>Sign In</Link>
-            <Link to="/signup" style={styles.link}>Sign Up</Link>
+            {renderNavTab("/signin", "Sign In")}
+            {renderNavTab("/signup", "Sign Up")}
           </>
         ) : (
-          <button onClick={handleLogout} style={styles.button}>Logout</button>
+          <button
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("user");
+              navigate("/signin");
+            }}
+            style={styles.button}
+          >
+            Logout
+          </button>
         )}
       </div>
     </nav>
@@ -38,21 +76,42 @@ const styles = {
     color: "#fff",
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.5)",
   },
+  leftSection: {
+    display: "flex",
+    alignItems: "center",
+    gap: "2rem",
+  },
   brand: {
+    display: "flex",
+    alignItems: "center",
     fontSize: "1.5rem",
     fontWeight: "bold",
+  },
+  brandText: {
+    color: "#fff",
+  },
+  brandHighlight: {
+    color: "#00aaff",
+  },
+  icon: {
+    marginRight: "8px",
+    color: "#00aaff",
+  },
+  leftLinks: {
+    display: "flex",
+    gap: "2rem",
+    marginLeft: "1.5rem",
   },
   links: {
     display: "flex",
     gap: "1rem",
   },
-  link: {
-    color: "#fff",
+  textTab: {
+    fontSize: "16px",
     textDecoration: "none",
-    backgroundColor: "#333",
-    padding: "0.5rem 1rem",
-    borderRadius: "4px",
-    transition: "background 0.3s",
+    paddingBottom: "4px",
+    transition: "color 0.3s, border-bottom 0.3s",
+    fontWeight: 500,
   },
   button: {
     color: "#fff",

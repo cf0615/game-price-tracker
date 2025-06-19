@@ -1,10 +1,13 @@
 // src/pages/SignIn.js
 import React, { useState } from "react";
 import axios from "../axios";
+import { useNavigate } from "react-router-dom";
+import bg from "../assets/games.jpg";
 
 export default function SignIn() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,7 +17,10 @@ export default function SignIn() {
     try {
       const res = await axios.post("/auth/signin", form);
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));  // ✅ Make sure user.id is returned from server
+
       setMsg("✅ Login successful.");
+      navigate("/games");
     } catch (err) {
       setMsg(err.response.data.msg || "❌ Login failed.");
     }
@@ -35,12 +41,14 @@ export default function SignIn() {
 
 const styles = {
   container: {
-    backgroundColor: "#121212",
-    height: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  backgroundImage: `url(${bg})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  height: "100vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+},
   form: {
     backgroundColor: "#1e1e1e",
     padding: "2rem",

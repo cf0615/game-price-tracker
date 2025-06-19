@@ -13,7 +13,6 @@ function GameDetails() {
     axios.get(`http://localhost:5000/api/games/${id}`)
       .then(res => {
         setGame(res.data);
-        // Fetch similar games
         axios.get("http://localhost:5000/api/games/free")
           .then(gamesRes => {
             const filtered = gamesRes.data.filter(g =>
@@ -25,6 +24,33 @@ function GameDetails() {
       .catch(err => console.error(err));
   }, [id]);
 
+  const handleAddFavorite = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user || !user.id || !user.username) {
+      alert("Please log in first.");
+      return;
+    }
+
+    axios.post("http://localhost:5000/api/favorites/add", {
+      userId: user.id,
+      username: user.username,
+      game: {
+        gameId: game.id,
+        title: game.title,
+        thumbnail: game.thumbnail,
+        genre: game.genre,
+        platform: game.platform,
+        game_url: game.game_url
+      }
+    })
+    .then(res => alert(res.data.message))
+    .catch(err => {
+      console.error(err);
+      alert(err.response?.data?.message || "Failed to add favorite");
+    });
+  };
+
   if (!game) return <p>Loading...</p>;
 
   return (
@@ -32,7 +58,6 @@ function GameDetails() {
       <Link to="/games" className="back-button">← Back to List</Link>
 
       <div className="details-content">
-        {/* Left Side */}
         <div className="details-left">
           <img src={game.thumbnail} alt={game.title} className="detail-thumbnail" />
           <div className="button-row">
@@ -40,10 +65,9 @@ function GameDetails() {
             <a href={game.game_url} target="_blank" rel="noopener noreferrer">
               <button className="btn play-now">PLAY NOW ➡</button>
             </a>
-            <button className="btn add-btn">ADD</button>
+            <button className="btn add-btn" onClick={handleAddFavorite}>ADD</button>
           </div>
 
-          {/* Similar Games */}
           {similarGames.length > 0 && (
             <div className="similar-games">
               <h3>Similar Games</h3>
@@ -59,12 +83,9 @@ function GameDetails() {
           )}
         </div>
 
-        {/* Right Side */}
         <div className="details-right">
           <h1 className="detail-title">{game.title}</h1>
-
           <p className="game-release">Release Date: {game.release_date ?? "N/A"}</p>
-          
 
           <h2 className="section-title">About</h2>
           <p className="detail-description">{game.description}</p>
@@ -77,7 +98,7 @@ function GameDetails() {
             <div className="info-block"><h4>Platform</h4><p>{game.platform}</p></div>
           </div>
 
-          {game.screenshots && game.screenshots.length > 0 && (
+          {game.screenshots?.length > 0 && (
             <>
               <h2 className="section-title">{game.title}: Screenshots</h2>
               <div className="screenshot-gallery">
@@ -109,7 +130,6 @@ function GameDetails() {
         </div>
       </div>
 
-      {/* Screenshot modal */}
       {selectedScreenshot && (
         <div className="screenshot-modal" onClick={() => setSelectedScreenshot(null)}>
           <img src={selectedScreenshot} alt="Full Screenshot" className="modal-image" />

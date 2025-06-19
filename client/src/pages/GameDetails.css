@@ -14,22 +14,24 @@
 }
 
 .back-button {
-  display: inline-block;
-  background-color: #2c2c2c;
-  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ccc;
   text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 14px;
+  border: none;
+  background: none;
+  padding-bottom: 4px;
+  transition: color 0.3s, border-bottom 0.3s;
+  cursor: pointer;
+  display: inline-block;
   margin-bottom: 20px;
-  transition: background-color 0.3s ease;
 }
 
 .back-button:hover {
-  background-color: #444;
-  color: #fff;
+  color: #00aaff;
+  border-bottom: 2px solid #00aaff;
 }
+
 
 .details-content {
   display: flex;
@@ -58,30 +60,31 @@
   margin-top: 10px;
 }
 
-.tag-free {
-  padding: 8px 14px;
-  background-color: #2e7d32;
-  color: white;
+.tag-free,
+.play-now,
+.add-btn {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 14px;
   font-weight: bold;
-  border-radius: 20px;
-  font-size: 13px;
+  border-radius: 6px;
+  text-align: center;
+  white-space: nowrap;
 }
 
-.btn {
-  padding: 10px 16px;
+.tag-free {
+  background-color: #2e7d32;
+  color: white;
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 14px;
-  flex: 1;
-  text-align: center;
-  transition: background-color 0.3s ease;
+  cursor: default;
 }
 
 .play-now {
   background-color: #409eff;
   color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .play-now:hover {
@@ -91,6 +94,9 @@
 .add-btn {
   background-color: #333;
   color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .details-right {
@@ -291,7 +297,6 @@
   font-size: 14px;
   font-weight: 500;
 }
-
 
 .game-release {
   font-size: 15px;
