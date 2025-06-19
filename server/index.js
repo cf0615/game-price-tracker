@@ -6,6 +6,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth");
 const gamesRouter = require("./routes/games");
 const epicRoute = require("./routes/epic");
+const priceRoute = require("./routes/price");
 
 const app = express();
 
@@ -27,6 +28,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/games", gamesRouter);
 // Epic.js
 app.use("/api/epic", epicRoute);
+// Price.js
+app.use("/api/price", priceRoute);
 
 // Default route
 app.get("/", (req, res) => {

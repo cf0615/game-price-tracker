@@ -1,10 +1,12 @@
 // src/pages/SignIn.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../axios";
 
 export default function SignIn() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,7 +16,9 @@ export default function SignIn() {
     try {
       const res = await axios.post("/auth/signin", form);
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("username", res.data.user.username);
       setMsg("✅ Login successful.");
+      navigate("/");
     } catch (err) {
       setMsg(err.response.data.msg || "❌ Login failed.");
     }

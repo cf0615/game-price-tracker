@@ -1,0 +1,135 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1b1b1b;
+  padding: 1rem 3rem;
+  color: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.brand:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 15px;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.auth-btn, .signup-btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.auth-btn {
+  background: #444;
+  color: #fff;
+}
+
+.auth-btn:hover {
+  background: #555;
+}
+
+.signup-btn {
+  background: #f39c12;
+  color: #fff;
+}
+
+.signup-btn:hover {
+  background: #ffa500;
+}
+
+.user-profile {
+  position: relative;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  background: #333;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.profile-pic:hover {
+  background: #444;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: #2b2b2b;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  width: 200px;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.dropdown-username {
+  padding: 15px 20px;
+  border-bottom: 1px solid #444;
+  font-weight: bold;
+  color: #ddd;
+}
+
+.dropdown-item {
+  padding: 15px 20px;
+  color: #ccc;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: #444;
+}
+
+.logout {
+  color: #f44336;
+}
