@@ -2,21 +2,17 @@ const express = require("express");
 const axios = require("axios");
 const router = express.Router();
 
-// Enhanced free games route with filters
 router.get("/free", async (req, res) => {
   try {
-    const { category, sort, platform } = req.query;
+    const { sort, category } = req.query;
     let url = "https://www.freetogame.com/api/games";
 
-    // Build query string dynamically
     const params = new URLSearchParams();
-    if (platform) params.append("platform", platform);
-    if (category) params.append("category", category);
     if (sort) params.append("sort-by", sort);
+    if (category) params.append("category", category);
 
-    if ([...params].length > 0) {
-      url += `?${params.toString()}`;
-    }
+    const queryString = params.toString();
+    if (queryString) url += `?${queryString}`;
 
     const response = await axios.get(url);
     res.json(response.data);
@@ -26,7 +22,6 @@ router.get("/free", async (req, res) => {
   }
 });
 
-// Game details (no change here)
 router.get("/:id", async (req, res) => {
   const gameId = req.params.id;
   try {

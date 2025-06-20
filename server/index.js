@@ -8,6 +8,7 @@ const gamesRouter = require("./routes/games");
 const epicRoute = require("./routes/epic");
 const priceRoute = require("./routes/price");
 
+
 const app = express();
 
 // Middleware
@@ -30,6 +31,11 @@ app.use("/api/games", gamesRouter);
 app.use("/api/epic", epicRoute);
 // Price.js
 app.use("/api/price", priceRoute);
+
+//Favorites
+const favoriteRoutes = require("./routes/favorites");
+app.use("/api/favorites", require("./routes/favorites"));
+
 
 // Default route
 app.get("/", (req, res) => {
