@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import PriceTracker from "./pages/PriceTracker";
+import PriceTracker from "./pages/PriceSearch";
+import PriceDetail from "./pages/PriceDetail";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Navbar from "./components/Navbar";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/games" element={<GameList />} />
         <Route path="/games/:id" element={<GameDetails />} />
         <Route path="/price-tracker" element={<PriceTracker />} />
+        <Route path="/price/:id" element={<PriceDetail />} />
       </Routes>
     </Router>
   );
