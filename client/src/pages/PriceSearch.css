@@ -1,0 +1,212 @@
+.tracker-container {
+  padding: 40px;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.tracker-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #f39c12;
+}
+
+.search-panel {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.search-panel input {
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #2a2a2a;
+  border: none;
+  color: white;
+  width: 300px;
+}
+
+.search-btn {
+  padding: 12px 25px;
+  background: #4caf50;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.result-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #1e1e2e;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.deal-thumb {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: #000;
+  padding: 6px;
+  display: block;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.details {
+  flex: 1;
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.details h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.price-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.discount {
+  background: #2ecc71;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.price {
+  font-weight: bold;
+  color: #00bcd4;
+}
+
+.cheapest-ever {
+  font-size: 0.9rem;
+  color: #f1c40f;
+  margin-bottom: 10px;
+}
+
+.compare-btn {
+  margin-top: 10px;
+  background: #3498db;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.compare-btn:hover {
+  background: #2980b9;
+}
+
+.deal-list {
+  margin-top: 20px;
+  border-top: 1px solid #444;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.deal-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #272736;
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+.store-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.store-name {
+  flex: 1;
+  color: #fff;
+  font-weight: 500;
+}
+
+.deal-price {
+  font-weight: bold;
+  color: #4caf50;
+  margin-right: 10px;
+}
+
+.buy-btn {
+  background: #2196f3;
+  padding: 8px 14px;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+  transition: background 0.3s ease;
+}
+
+.buy-btn:hover {
+  background: #1976d2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .result-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .deal-thumb {
+    width: 100%;
+    height: auto;
+  }
+
+  .details {
+    margin-left: 0;
+    margin-top: 15px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .deal-entry {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .store-name {
+    margin-bottom: 5px;
+  }
+}

@@ -66,6 +66,7 @@ export default function Navbar() {
   );
 }
 
+
 const styles = {
   nav: {
     display: "flex",
@@ -123,3 +124,4 @@ const styles = {
     transition: "background 0.3s",
   }
 };
+
