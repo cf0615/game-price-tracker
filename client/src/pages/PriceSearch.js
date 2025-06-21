@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../axios"; // make sure this points to your backend proxy
+import axios from "../axios";
 import "./PriceSearch.css";
 
 export default function PriceSearch() {
@@ -9,32 +9,27 @@ export default function PriceSearch() {
   const [storeMap, setStoreMap] = useState({});
   const [cheapestEverMap, setCheapestEverMap] = useState({});
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
-    // Fetch all store info from backend
     axios.get("/price/stores").then(res => setStoreMap(res.data));
   }, []);
 
   const handleSearch = async () => {
     try {
-      // Fetch grouped deals from backend
       const res = await axios.get(`/price/search?title=${encodeURIComponent(query)}`);
       setGroupedDeals(res.data);
 
-      // For each game, get cheapest ever via backend
-      const promises = Object.values(res.data).map(async deals => {
+      const cheapestMap = {};
+      await Promise.all(Object.values(res.data).map(async deals => {
         const steamAppID = deals[0]?.steamAppID;
+        const gameID = deals[0]?.gameID;
         if (steamAppID) {
           const r = await axios.get(`/price/cheapest/${steamAppID}`);
-          return { gameID: deals[0].gameID, cheapest: r.data.cheapest };
+          cheapestMap[gameID] = r.data.cheapest;
         }
-        return { gameID: deals[0].gameID, cheapest: null };
-      });
+      }));
 
-      const results = await Promise.all(promises);
-      const cheapestMap = {};
-      results.forEach(({ gameID, cheapest }) => {
-        cheapestMap[gameID] = cheapest;
-      });
       setCheapestEverMap(cheapestMap);
     } catch (err) {
       console.error("Search error", err);
@@ -43,6 +38,32 @@ export default function PriceSearch() {
 
   const toggleExpanded = (gameID) => {
     setExpanded(prev => ({ ...prev, [gameID]: !prev[gameID] }));
+  };
+
+  const handleSetAlert = async (gameID, title, thumb, steamAppID) => {
+    if (!token) return alert("❌ Please sign in to set a price alert.");
+
+    const userPrice = prompt("Enter your target price:");
+    if (!userPrice || isNaN(userPrice)) return alert("❌ Invalid price");
+
+    try {
+      const res = await axios.post("/price/set-alert", {
+        gameID,
+        title,
+        thumb,
+        steamAppID,
+        price: userPrice
+      });
+
+      if (res.data.success) {
+        alert("✅ Price alert set successfully!");
+      } else {
+        alert("❌ Failed to set price alert.");
+      }
+    } catch (err) {
+      console.error("Error setting alert", err);
+      alert("❌ Server error. Please try again.");
+    }
   };
 
   return (
@@ -81,9 +102,18 @@ export default function PriceSearch() {
                   <p className="cheapest-ever">🏷️ Cheapest Ever: ${parseFloat(cheapestEver).toFixed(2)}</p>
                 )}
 
-                <button className="compare-btn" onClick={() => toggleExpanded(gameID)}>
-                  {isOpen ? "Hide Stores" : "View All Deals"}
-                </button>
+                <div style={{ display: "flex", gap: "0.5rem", marginTop: "10px" }}>
+                  <button className="compare-btn" onClick={() => toggleExpanded(gameID)}>
+                    {isOpen ? "Hide Stores" : "View All Deals"}
+                  </button>
+
+                  <button
+                    className="alert-btn"
+                    onClick={() => handleSetAlert(game.gameID, game.title, game.thumb, game.steamAppID)}
+                  >
+                    🔔 Set Alert
+                  </button>
+                </div>
 
                 {isOpen && (
                   <div className="deal-list">

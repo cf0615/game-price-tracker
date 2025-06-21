@@ -20,7 +20,7 @@ export default function SignIn() {
       localStorage.setItem("user", JSON.stringify(res.data.user));  // ✅ Make sure user.id is returned from server
 
       setMsg("✅ Login successful.");
-      navigate("/games");
+      navigate("/");
     } catch (err) {
       setMsg(err.response.data.msg || "❌ Login failed.");
     }

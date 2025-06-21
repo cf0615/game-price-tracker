@@ -9,6 +9,7 @@ import GameList from "./pages/GameList";
 import GameDetails from "./pages/GameDetails";
 import GenreGameList from "./pages/GenreGameList";
 import Favorites from "./pages/Favorites";
+import Alerts from "./pages/Alerts";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/price-tracker" element={<PriceTracker />} />
         <Route path="/genre/:genreName" element={<GenreGameList />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/alerts" element={<Alerts />} />
       </Routes>
     </Router>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FaGamepad } from "react-icons/fa"; // Font Awesome icon
+import { FaGamepad, FaUserCircle } from "react-icons/fa";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -8,6 +8,9 @@ export default function Navbar() {
   const isLoggedIn = !!localStorage.getItem("token");
 
   const [hoveredTab, setHoveredTab] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const user = JSON.parse(localStorage.getItem("user")) || { username: "User" };
 
   const isActive = (path) => location.pathname === path;
 
@@ -31,15 +34,25 @@ export default function Navbar() {
     );
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/signin");
+    setMenuOpen(false);
+  };
+
   return (
     <nav style={styles.nav}>
       <div style={styles.leftSection}>
         <div style={styles.brand}>
-          <FaGamepad style={styles.icon} /> <span style={styles.brandText}>Gam</span><span style={styles.brandHighlight}>ix</span>
+          <FaGamepad style={styles.icon} />
+          <span style={styles.brandText}>Gam</span>
+          <span style={styles.brandHighlight}>ix</span>
         </div>
         <div style={styles.leftLinks}>
+          {renderNavTab("/", "Home")}
           {renderNavTab("/games", "Game List")}
-          {renderNavTab("/favorites", "Favorites")}
+          {renderNavTab("/price-tracker", "Price Search")}
         </div>
       </div>
 
@@ -50,22 +63,33 @@ export default function Navbar() {
             {renderNavTab("/signup", "Sign Up")}
           </>
         ) : (
-          <button
-            onClick={() => {
-              localStorage.removeItem("token");
-              localStorage.removeItem("user");
-              navigate("/signin");
-            }}
-            style={styles.button}
-          >
-            Logout
-          </button>
+          <div style={styles.profileContainer}>
+            <div
+              style={styles.profileWrapper}
+              onClick={() => setMenuOpen(!menuOpen)}
+              title={user.username}
+            >
+              <FaUserCircle style={styles.profileIcon} />
+              <span>{user.username}</span>
+            </div>
+
+            {menuOpen && (
+              <div style={styles.dropdownMenu}>
+                <Link to="/favorites" style={styles.dropdownItem}>
+                  Favorites
+                </Link>
+                <Link to="/alerts" style={styles.dropdownItem}>My Alerts</Link>
+                <button onClick={handleLogout} style={styles.dropdownItem}>
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </nav>
   );
 }
-
 
 const styles = {
   nav: {
@@ -76,6 +100,8 @@ const styles = {
     padding: "1rem 2rem",
     color: "#fff",
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.5)",
+    position: "relative",
+    zIndex: 1000,
   },
   leftSection: {
     display: "flex",
@@ -88,16 +114,9 @@ const styles = {
     fontSize: "1.5rem",
     fontWeight: "bold",
   },
-  brandText: {
-    color: "#fff",
-  },
-  brandHighlight: {
-    color: "#00aaff",
-  },
-  icon: {
-    marginRight: "8px",
-    color: "#00aaff",
-  },
+  brandText: { color: "#fff" },
+  brandHighlight: { color: "#00aaff" },
+  icon: { marginRight: "8px", color: "#00aaff" },
   leftLinks: {
     display: "flex",
     gap: "2rem",
@@ -105,6 +124,7 @@ const styles = {
   },
   links: {
     display: "flex",
+    alignItems: "center",
     gap: "1rem",
   },
   textTab: {
@@ -114,14 +134,47 @@ const styles = {
     transition: "color 0.3s, border-bottom 0.3s",
     fontWeight: 500,
   },
-  button: {
-    color: "#fff",
-    backgroundColor: "#d32f2f",
-    border: "none",
-    padding: "0.5rem 1rem",
-    borderRadius: "4px",
+  profileContainer: {
+    position: "relative",
+  },
+  profileWrapper: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
     cursor: "pointer",
+    color: "#ccc",
+    fontWeight: 500,
+  },
+  profileIcon: {
+    fontSize: "1.3rem",
+  },
+  dropdownMenu: {
+    position: "absolute",
+    top: "120%",
+    right: 0,
+    backgroundColor: "#2b2b2b",
+    borderRadius: "6px",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+    overflow: "hidden",
+    zIndex: 1000,
+    minWidth: "150px"  // ✅ Ensure enough width
+  },
+
+  dropdownItem: {
+    display: "block",           // ✅ Force block layout
+    padding: "10px 16px",
+    background: "none",
+    color: "#fff",
+    border: "none",
+    width: "100%",
+    textAlign: "left",
+    cursor: "pointer",
+    fontSize: "14px",
     transition: "background 0.3s",
+    textDecoration: "none",     // ✅ For <Link>
+    whiteSpace: "nowrap",
+    ":hover": {
+      backgroundColor: "#3c3c3c"        // ✅ Prevent wrapping
+    }
   }
 };
-
