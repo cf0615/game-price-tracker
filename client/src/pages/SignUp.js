@@ -1,6 +1,7 @@
 // src/pages/SignUp.js
 import React, { useState } from "react";
 import axios from "../axios";
+import bg from "../assets/games.jpg";
 
 export default function SignUp() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
@@ -35,12 +36,14 @@ export default function SignUp() {
 
 const styles = {
   container: {
-    backgroundColor: "#121212",
-    height: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  backgroundImage: `url(${bg})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  height: "100vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+},
   form: {
     backgroundColor: "#1e1e1e",
     padding: "2rem",

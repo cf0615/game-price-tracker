@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "../axios";
 import { useNavigate } from "react-router-dom";
+import { FaGamepad } from "react-icons/fa";
 import "./HomePage.css";
 
 export default function HomePage() {
@@ -27,12 +28,29 @@ export default function HomePage() {
 
   return (
     <div className="home-container">
-      <h1 className="main-title">🎮 Game Tracker</h1>
+      
+      <h1 className="main-title brand-gamix">
+      <FaGamepad className="gamix-icon" />
+      <span>
+        <span className="gam">Gam</span><span className="ix">ix</span>
+      </span>
+    </h1>
+
+    <p className="brand-description">
+      Gamix is your ultimate destination to explore, track, and collect free and paid games from top platforms. 
+      Discover the latest releases, compare game prices, set deal alerts, and build your personal game collection.
+    </p>
+
       {/* Epic Free Games Section */}
       <div className="section">
         <div className="section-header">
-          <h2>🎁 Epic This Week Free Games</h2>
+          <h2>🎁 Epic Games Platform's This Week Free Games</h2>
         </div>
+
+        <p className="section-description">
+        Discover this week's free games available on the Epic Games Store. Grab limited-time giveaways before they're gone—no payment required!
+      </p>
+
 
         <div className="epic-hero-container">
           {epic.map(game => {

@@ -8,6 +8,7 @@ export default function PriceSearch() {
   const [expanded, setExpanded] = useState({});
   const [storeMap, setStoreMap] = useState({});
   const [cheapestEverMap, setCheapestEverMap] = useState({});
+  const [suggestions, setSuggestions] = useState([]);
 
   const token = localStorage.getItem("token");
 
@@ -19,6 +20,7 @@ export default function PriceSearch() {
     try {
       const res = await axios.get(`/price/search?title=${encodeURIComponent(query)}`);
       setGroupedDeals(res.data);
+      setSuggestions([]); // Clear suggestions after search
 
       const cheapestMap = {};
       await Promise.all(Object.values(res.data).map(async deals => {
@@ -66,18 +68,55 @@ export default function PriceSearch() {
     }
   };
 
+  const handleInputChange = async (e) => {
+    const value = e.target.value;
+    setQuery(value);
+
+    if (value.length > 2) {
+      try {
+        const res = await axios.get(`/price/search?title=${encodeURIComponent(value)}`);
+        const flatList = Object.values(res.data).map(deals => deals[0]);
+        setSuggestions(flatList.slice(0, 6));
+      } catch {
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (title) => {
+    setQuery(title);
+    setSuggestions([]);
+    handleSearch();
+  };
+
   return (
     <div className="tracker-container">
       <h1 className="tracker-title">🎯 Game Price Search</h1>
+      <p className="tracker-subtitle">
+        Discover and compare prices of paid games across popular stores.
+      </p>
 
-      <div className="search-panel">
+      <div className="search-panel" style={{ position: "relative" }}>
         <input
           type="text"
           placeholder="Search game..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleInputChange}
         />
         <button className="search-btn" onClick={handleSearch}>Search</button>
+
+        {suggestions.length > 0 && (
+          <ul className="search-suggestions">
+            {suggestions.map((game) => (
+              <li key={game.gameID} onClick={() => handleSuggestionClick(game.title)}>
+                <img src={game.thumb} alt={game.title} />
+                <span>{game.title}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div className="results-list">

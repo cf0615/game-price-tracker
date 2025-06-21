@@ -1,16 +1,23 @@
+body {
+  background-color: #121212;
+}
+
 .tracker-container {
   padding: 40px;
   color: #fff;
   font-family: 'Segoe UI', sans-serif;
   max-width: 1200px;
   margin: auto;
+  background-color: #121212; /* Dark theme base */
 }
+
 
 .tracker-title {
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 30px;
-  color: #f39c12;
+  color: #fff;
+  
 }
 
 .search-panel {
@@ -33,41 +40,57 @@
 
 .search-btn {
   padding: 12px 25px;
-  background: #4caf50;
+  background: #00bcd4;
   color: #fff;
   font-size: 1rem;
   border: none;
   border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
+
+.search-btn:hover {
+  background: #00acc1;
+  transform: scale(1.05);
+}
+
 
 .results-list {
   display: flex;
   flex-direction: column;
   gap: 25px;
+  margin-top: 30px;
 }
 
 .result-card {
   display: flex;
   align-items: center;
   gap: 20px;
-  background: #1e1e2e;
-  padding: 20px;
-  border-radius: 12px;
-  max-width: 100%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  background: #1a1a1a;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+  transition: transform 0.2s ease;
 }
+
+.result-card:hover {
+  transform: scale(1.01);
+}
+
 
 .deal-thumb {
   width: 120px;
   height: 120px;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 8px;
   background-color: #000;
   padding: 6px;
-  display: block;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+  border: 1px solid #333;
 }
+
 
 .details {
   flex: 1;
@@ -113,21 +136,40 @@
   margin-bottom: 10px;
 }
 
-.compare-btn {
-  margin-top: 10px;
-  background: #3498db;
-  padding: 10px 20px;
+.compare-btn,
+.alert-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px 16px;
   border-radius: 6px;
-  font-weight: bold;
-  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: white;
   border: none;
   cursor: pointer;
-  width: fit-content;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.compare-btn {
+  background-color: #6366f1; /* Indigo */
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
 }
 
 .compare-btn:hover {
-  background: #2980b9;
+  background-color: #4f46e5;
+  transform: scale(1.05);
 }
+
+.alert-btn {
+  background-color: #f97316; /* Modern orange */
+  box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+}
+
+.alert-btn:hover {
+  background-color: #ea580c;
+  transform: scale(1.05);
+}
+
 
 .deal-list {
   margin-top: 20px;
@@ -167,18 +209,20 @@
 }
 
 .buy-btn {
-  background: #2196f3;
+  background: #10b981; /* Emerald */
   padding: 8px 14px;
   color: #fff;
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
   font-size: 0.95rem;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .buy-btn:hover {
-  background: #1976d2;
+  background: #059669;
+  transform: scale(1.05);
 }
 
 /* Responsive */
@@ -211,23 +255,88 @@
   }
 }
 
-.alert-btn {
-  background-color: #ff9800; /* Warm orange */
-  color: #fff;
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
 
-.alert-btn:hover {
-  background-color: #fb8c00;
-  transform: scale(1.05);
-}
 
 .alert-btn:active {
   background-color: #ef6c00;
   transform: scale(0.95);
 }
+
+.tracker-subtitle {
+  text-align: center;
+  color: #ccc;
+  margin-top: -15px;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.search-hint {
+  text-align: center;
+  color: #aaa;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.search-suggestions {
+  position: absolute;
+  top: 100%;       /* 👈 Push below the whole search bar */
+  left: 0;
+  right: 0;
+  margin-top: 6px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  list-style: none;
+  padding: 0;
+  z-index: 20;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  overflow-y: auto;
+  max-height: 260px;
+  width: 100%;     /* 👈 Match search panel width */
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.search-panel {
+  position: relative; /* 👈 Needed for absolute positioning inside */
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+
+.search-suggestions li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-suggestions li:hover {
+  background-color: #2a2a2a;
+}
+
+.search-suggestions img {
+  width: 40px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.search-suggestions span {
+  color: #fff;
+  font-size: 14px;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

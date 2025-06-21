@@ -75,13 +75,45 @@ export default function Navbar() {
 
             {menuOpen && (
               <div style={styles.dropdownMenu}>
-                <Link to="/favorites" style={styles.dropdownItem}>
+                <Link
+                  to="/favorites"
+                  style={{
+                    ...styles.dropdownItem,
+                    backgroundColor: hoveredTab === "Favorites" ? "#333" : "transparent",
+                    color: hoveredTab === "Favorites" ? "#00aaff" : "#fff"
+                  }}
+                  onMouseEnter={() => setHoveredTab("Favorites")}
+                  onMouseLeave={() => setHoveredTab(null)}
+                >
                   Favorites
                 </Link>
-                <Link to="/alerts" style={styles.dropdownItem}>My Alerts</Link>
-                <button onClick={handleLogout} style={styles.dropdownItem}>
-                  Logout
-                </button>
+
+                <Link
+                  to="/alerts"
+                  style={{
+                    ...styles.dropdownItem,
+                    backgroundColor: hoveredTab === "Alerts" ? "#333" : "transparent",
+                    color: hoveredTab === "Alerts" ? "#00aaff" : "#fff"
+                  }}
+                  onMouseEnter={() => setHoveredTab("Alerts")}
+                  onMouseLeave={() => setHoveredTab(null)}
+                >
+                  My Alerts
+                </Link>
+
+                <button
+                onClick={handleLogout}
+                style={{
+                  ...styles.dropdownItem,
+                  backgroundColor: hoveredTab === "Logout" ? "#333" : "transparent",
+                  color: hoveredTab === "Logout" ? "#00aaff" : "#fff"
+                }}
+                onMouseEnter={() => setHoveredTab("Logout")}
+                onMouseLeave={() => setHoveredTab(null)}
+              >
+                Logout
+              </button>
+
               </div>
             )}
           </div>
@@ -161,20 +193,19 @@ const styles = {
   },
 
   dropdownItem: {
-    display: "block",           // ✅ Force block layout
-    padding: "10px 16px",
-    background: "none",
-    color: "#fff",
-    border: "none",
-    width: "100%",
-    textAlign: "left",
-    cursor: "pointer",
-    fontSize: "14px",
-    transition: "background 0.3s",
-    textDecoration: "none",     // ✅ For <Link>
-    whiteSpace: "nowrap",
-    ":hover": {
-      backgroundColor: "#3c3c3c"        // ✅ Prevent wrapping
-    }
-  }
+  display: "block",
+  padding: "10px 16px",
+  background: "none",
+  color: "#fff",
+  border: "none",
+  width: "100%",
+  textAlign: "left",
+  cursor: "pointer",
+  fontSize: "14px",
+  textDecoration: "none",
+  whiteSpace: "nowrap",
+  transition: "all 0.3s ease",
+  backgroundColor: "transparent",
+},
+
 };
