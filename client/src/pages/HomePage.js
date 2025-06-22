@@ -61,7 +61,7 @@ export default function HomePage() {
             const endDate = game.promotions?.promotionalOffers?.[0]?.promotionalOffers?.[0]?.endDate;
 
             return (
-              <div key={game.id} className="epic-hero-card" onClick={() => window.open(game.urlSlug ? `https://store.epicgames.com/en-US/p/${game.urlSlug}` : '#')}>
+              <div key={game.id} className="epic-hero-card" onClick={() => window.open(game.mappings[0].pageSlug ? `https://store.epicgames.com/en-US/p/${game.mappings[0].pageSlug}` : '#')}>
                 <div className="epic-hero-image-container">
                   <img src={banner ? banner.url : ""} alt={game.title} className="epic-hero-image" />
                 </div>
