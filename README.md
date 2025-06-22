@@ -4,4 +4,4 @@ Game Price Tracker is a full-stack web application built with the MERN stack (Mo
 
 This app is ideal for budget-conscious gamers who want to stay informed about the best gaming deals without manually checking multiple platforms.
 
-🚀 **Live Demo:** [Try it here]([https://your-live-site-link.com](https://game-price-tracker-j4g9qvv4s-cf0615s-projects.vercel.app))
+🚀 **Live Demo:** [Try it here](https://game-price-tracker-j4g9qvv4s-cf0615s-projects.vercel.app)
