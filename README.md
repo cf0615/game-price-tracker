@@ -9,4 +9,4 @@ The platform uses three APIs:
 
 The frontend is built in **React.js** and deployed on **Vercel**, while the backend (Node.js + Express) is deployed on **Render**. Data is stored in **MongoDB Atlas**.
 
-🚀 **Live Demo:** [Try it here](https://game-price-tracker-j4g9qvv4s-cf0615s-projects.vercel.app)
+🚀 **Live Demo:** [Try it here](https://game-price-tracker-nxx02cea1-cf0615s-projects.vercel.app/)
