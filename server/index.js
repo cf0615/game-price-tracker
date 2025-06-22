@@ -5,6 +5,9 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
 const gamesRouter = require("./routes/games");
+const epicRoute = require("./routes/epic");
+const priceRoute = require("./routes/price");
+
 
 const app = express();
 
@@ -24,6 +27,15 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use("/api/auth", authRoutes);
 // Games.js
 app.use("/api/games", gamesRouter);
+// Epic.js
+app.use("/api/epic", epicRoute);
+// Price.js
+app.use("/api/price", priceRoute);
+
+//Favorites
+const favoriteRoutes = require("./routes/favorites");
+app.use("/api/favorites", require("./routes/favorites"));
+
 
 // Default route
 app.get("/", (req, res) => {

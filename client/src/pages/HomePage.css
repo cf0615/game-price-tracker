@@ -1,0 +1,400 @@
+.home-container {
+  padding: 40px 20px;
+  color: #fff;
+  background-color: #121212;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 60px;
+  color: #f5f5f5;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  flex-wrap: wrap;
+}
+
+.brand-description {
+  text-align: center;
+  color: #ccc;
+  max-width: 750px;
+  margin: -15px auto 60px;
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.section-description {
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-top: -10px;
+  margin-bottom: 25px;
+  text-align: left;
+  max-width: 1000px;
+}
+
+.section {
+  margin-bottom: 80px;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 40px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+.view-all {
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.view-all:hover {
+  background: #ffa726;
+  transform: scale(1.05);
+}
+
+.horizontal-scroll {
+  display: flex;
+  gap: 25px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1e1e1e;
+  border: 2px solid #00aaff;
+  color: #00aaff;
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.scroll-button:hover {
+  background-color: #00aaff;
+  color: #121212;
+  transform: translateY(-50%) scale(1.1);
+}
+
+
+.scroll-button.left {
+  left: -60px;
+}
+
+.scroll-button.right {
+  right: -60px;
+}
+
+
+.game-card {
+  min-width: 220px;
+  background: #1e1e1e;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+
+.game-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 0 20px rgba(0, 170, 255, 0.4);
+}
+
+.game-image-container {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.game-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-title {
+  padding: 15px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+  text-align: center;
+  min-height: 60px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list-card {
+  display: flex;
+  align-items: center;
+  background: #1e1e1e;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.list-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(0, 170, 255, 0.4);
+}
+
+.list-thumbnail {
+  width: 120px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.list-info {
+  flex-grow: 1;
+}
+
+.list-info h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.list-info p {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  color: #aaa;
+}
+
+.tags {
+  margin-top: 10px;
+}
+
+.tag {
+  display: inline-block;
+  background: #444;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  margin-right: 10px;
+  color: #ddd;
+}
+
+.list-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.platform {
+  font-size: 0.85rem;
+  color: #bbb;
+}
+
+.free-badge {
+  background: #4caf50;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.epic-hero-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.epic-hero-card {
+  position: relative;
+  width: 100%;
+  padding-top: 40%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  background: #000;
+}
+
+.epic-hero-card:hover {
+  transform: scale(1.02);
+}
+
+.epic-hero-image-container {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+}
+
+.epic-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.epic-hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0));
+  padding: 30px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.epic-hero-info {
+  max-width: 60%;
+}
+
+.epic-hero-info h2 {
+  font-size: 2.2rem;
+  margin: 0 0 15px 0;
+  color: #fff;
+}
+
+.epic-hero-info p {
+  font-size: 1rem;
+  margin: 0;
+  color: #ccc;
+  max-height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.epic-hero-button {
+  align-self: flex-end;
+}
+
+.claim-button {
+  background: #4caf50;
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 30px;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+}
+
+.claim-button:hover {
+  background: #43a047;
+}
+
+/* Brand Title Split */
+.brand-gamix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 3rem;
+  text-align: center;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.gam {
+  color: #fff;
+}
+
+.ix {
+  color: #00aaff;
+}
+
+.gamix-icon {
+  color: #00aaff;
+  font-size: 2.5rem;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Responsive Fix */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .view-all {
+    padding: 8px 18px;
+    font-size: 0.9rem;
+  }
+
+  .game-card {
+    min-width: 180px;
+  }
+
+  .list-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .list-right {
+    align-items: flex-start;
+    margin-top: 10px;
+  }
+}

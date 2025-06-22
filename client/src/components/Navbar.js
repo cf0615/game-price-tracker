@@ -1,28 +1,122 @@
-// src/components/Navbar.js
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { FaGamepad, FaUserCircle } from "react-icons/fa";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const isLoggedIn = !!localStorage.getItem("token");
+
+  const [hoveredTab, setHoveredTab] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const user = JSON.parse(localStorage.getItem("user")) || { username: "User" };
+
+  const isActive = (path) => location.pathname === path;
+
+  const renderNavTab = (to, label) => {
+    const isHovered = hoveredTab === label;
+    const active = isActive(to);
+
+    return (
+      <Link
+        to={to}
+        onMouseEnter={() => setHoveredTab(label)}
+        onMouseLeave={() => setHoveredTab(null)}
+        style={{
+          ...styles.textTab,
+          color: active || isHovered ? "#00aaff" : "#ccc",
+          borderBottom: active || isHovered ? "2px solid #00aaff" : "none",
+        }}
+      >
+        {label}
+      </Link>
+    );
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/signin");
+    setMenuOpen(false);
   };
 
   return (
     <nav style={styles.nav}>
-      <div style={styles.brand}>🎮 Game Tracker</div>
+      <div style={styles.leftSection}>
+        <div style={styles.brand}>
+          <FaGamepad style={styles.icon} />
+          <span style={styles.brandText}>Gam</span>
+          <span style={styles.brandHighlight}>ix</span>
+        </div>
+        <div style={styles.leftLinks}>
+          {renderNavTab("/", "Home")}
+          {renderNavTab("/games", "Game List")}
+          {renderNavTab("/price-tracker", "Price Search")}
+        </div>
+      </div>
+
       <div style={styles.links}>
         {!isLoggedIn ? (
           <>
-            <Link to="/games" style={styles.link}>Game List</Link>
-            <Link to="/signin" style={styles.link}>Sign In</Link>
-            <Link to="/signup" style={styles.link}>Sign Up</Link>
+            {renderNavTab("/signin", "Sign In")}
+            {renderNavTab("/signup", "Sign Up")}
           </>
         ) : (
-          <button onClick={handleLogout} style={styles.button}>Logout</button>
+          <div style={styles.profileContainer}>
+            <div
+              style={styles.profileWrapper}
+              onClick={() => setMenuOpen(!menuOpen)}
+              title={user.username}
+            >
+              <FaUserCircle style={styles.profileIcon} />
+              <span>{user.username}</span>
+            </div>
+
+            {menuOpen && (
+              <div style={styles.dropdownMenu}>
+                <Link
+                  to="/favorites"
+                  style={{
+                    ...styles.dropdownItem,
+                    backgroundColor: hoveredTab === "Favorites" ? "#333" : "transparent",
+                    color: hoveredTab === "Favorites" ? "#00aaff" : "#fff"
+                  }}
+                  onMouseEnter={() => setHoveredTab("Favorites")}
+                  onMouseLeave={() => setHoveredTab(null)}
+                >
+                  Favorites
+                </Link>
+
+                <Link
+                  to="/alerts"
+                  style={{
+                    ...styles.dropdownItem,
+                    backgroundColor: hoveredTab === "Alerts" ? "#333" : "transparent",
+                    color: hoveredTab === "Alerts" ? "#00aaff" : "#fff"
+                  }}
+                  onMouseEnter={() => setHoveredTab("Alerts")}
+                  onMouseLeave={() => setHoveredTab(null)}
+                >
+                  My Alerts
+                </Link>
+
+                <button
+                onClick={handleLogout}
+                style={{
+                  ...styles.dropdownItem,
+                  backgroundColor: hoveredTab === "Logout" ? "#333" : "transparent",
+                  color: hoveredTab === "Logout" ? "#00aaff" : "#fff"
+                }}
+                onMouseEnter={() => setHoveredTab("Logout")}
+                onMouseLeave={() => setHoveredTab(null)}
+              >
+                Logout
+              </button>
+
+              </div>
+            )}
+          </div>
         )}
       </div>
     </nav>
@@ -38,30 +132,80 @@ const styles = {
     padding: "1rem 2rem",
     color: "#fff",
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.5)",
+    position: "relative",
+    zIndex: 1000,
+  },
+  leftSection: {
+    display: "flex",
+    alignItems: "center",
+    gap: "2rem",
   },
   brand: {
+    display: "flex",
+    alignItems: "center",
     fontSize: "1.5rem",
     fontWeight: "bold",
   },
+  brandText: { color: "#fff" },
+  brandHighlight: { color: "#00aaff" },
+  icon: { marginRight: "8px", color: "#00aaff" },
+  leftLinks: {
+    display: "flex",
+    gap: "2rem",
+    marginLeft: "1.5rem",
+  },
   links: {
     display: "flex",
+    alignItems: "center",
     gap: "1rem",
   },
-  link: {
-    color: "#fff",
+  textTab: {
+    fontSize: "16px",
     textDecoration: "none",
-    backgroundColor: "#333",
-    padding: "0.5rem 1rem",
-    borderRadius: "4px",
-    transition: "background 0.3s",
+    paddingBottom: "4px",
+    transition: "color 0.3s, border-bottom 0.3s",
+    fontWeight: 500,
   },
-  button: {
-    color: "#fff",
-    backgroundColor: "#d32f2f",
-    border: "none",
-    padding: "0.5rem 1rem",
-    borderRadius: "4px",
+  profileContainer: {
+    position: "relative",
+  },
+  profileWrapper: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
     cursor: "pointer",
-    transition: "background 0.3s",
-  }
+    color: "#ccc",
+    fontWeight: 500,
+  },
+  profileIcon: {
+    fontSize: "1.3rem",
+  },
+  dropdownMenu: {
+    position: "absolute",
+    top: "120%",
+    right: 0,
+    backgroundColor: "#2b2b2b",
+    borderRadius: "6px",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+    overflow: "hidden",
+    zIndex: 1000,
+    minWidth: "150px"  // ✅ Ensure enough width
+  },
+
+  dropdownItem: {
+  display: "block",
+  padding: "10px 16px",
+  background: "none",
+  color: "#fff",
+  border: "none",
+  width: "100%",
+  textAlign: "left",
+  cursor: "pointer",
+  fontSize: "14px",
+  textDecoration: "none",
+  whiteSpace: "nowrap",
+  transition: "all 0.3s ease",
+  backgroundColor: "transparent",
+},
+
 };

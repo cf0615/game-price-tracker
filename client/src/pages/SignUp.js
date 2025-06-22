@@ -1,6 +1,7 @@
 // src/pages/SignUp.js
 import React, { useState } from "react";
 import axios from "../axios";
+import bg from "../assets/games.jpg";
 
 export default function SignUp() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
@@ -10,14 +11,27 @@ export default function SignUp() {
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("/auth/signup", form);
-      setMsg("✅ User registered successfully.");
-    } catch (err) {
-      setMsg(err.response.data.msg || "❌ Registration failed.");
-    }
-  };
+  e.preventDefault();
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(form.email)) {
+    setMsg("❌ Please enter a valid email.");
+    return;
+  }
+
+  if (form.password.length < 6) {
+    setMsg("❌ Password must be at least 6 characters.");
+    return;
+  }
+
+  try {
+    await axios.post("/auth/signup", form);
+    setMsg("✅ User registered successfully.");
+  } catch (err) {
+    setMsg(err.response?.data?.msg || "❌ Registration failed.");
+  }
+};
+
 
   return (
     <div style={styles.container}>
@@ -35,12 +49,14 @@ export default function SignUp() {
 
 const styles = {
   container: {
-    backgroundColor: "#121212",
-    height: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  backgroundImage: `url(${bg})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  height: "100vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+},
   form: {
     backgroundColor: "#1e1e1e",
     padding: "2rem",
