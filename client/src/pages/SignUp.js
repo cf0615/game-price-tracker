@@ -11,14 +11,27 @@ export default function SignUp() {
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("/auth/signup", form);
-      setMsg("✅ User registered successfully.");
-    } catch (err) {
-      setMsg(err.response.data.msg || "❌ Registration failed.");
-    }
-  };
+  e.preventDefault();
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(form.email)) {
+    setMsg("❌ Please enter a valid email.");
+    return;
+  }
+
+  if (form.password.length < 6) {
+    setMsg("❌ Password must be at least 6 characters.");
+    return;
+  }
+
+  try {
+    await axios.post("/auth/signup", form);
+    setMsg("✅ User registered successfully.");
+  } catch (err) {
+    setMsg(err.response?.data?.msg || "❌ Registration failed.");
+  }
+};
+
 
   return (
     <div style={styles.container}>
