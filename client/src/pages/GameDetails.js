@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../axios";
 import "./GameDetails.css";
 
 function GameDetails() {
@@ -10,10 +10,10 @@ function GameDetails() {
   const [selectedScreenshot, setSelectedScreenshot] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/games/${id}`)
+    axios.get(`/games/${id}`)
       .then(res => {
         setGame(res.data);
-        axios.get("http://localhost:5000/api/games/free")
+        axios.get(`/games/free`)
           .then(gamesRes => {
             const filtered = gamesRes.data.filter(g =>
               g.genre === res.data.genre && g.id !== res.data.id
@@ -22,7 +22,7 @@ function GameDetails() {
           });
       })
       .catch(err => console.error(err));
-  }, [id]);
+  });
 
   const handleAddFavorite = () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -32,7 +32,7 @@ function GameDetails() {
       return;
     }
 
-    axios.post("http://localhost:5000/api/favorites/add", {
+    axios.post(`/favorites/add`, {
       userId: user.id,
       username: user.username,
       game: {

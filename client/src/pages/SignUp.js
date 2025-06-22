@@ -13,14 +13,10 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(form.email)) {
-    setMsg("❌ Please enter a valid email.");
-    return;
-  }
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  if (form.password.length < 6) {
-    setMsg("❌ Password must be at least 6 characters.");
+  if (!passwordRegex.test(form.password)) {
+    setMsg("❌ Password must be at least 8 characters and include uppercase, number, and special character.");
     return;
   }
 
@@ -31,6 +27,7 @@ export default function SignUp() {
     setMsg(err.response?.data?.msg || "❌ Registration failed.");
   }
 };
+
 
 
   return (
